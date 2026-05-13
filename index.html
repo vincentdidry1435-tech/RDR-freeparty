@@ -96,11 +96,12 @@ em.fr { color:var(--muted); font-style:italic; margin-left:6px; font-size:.92em;
   em.fr { display:block; margin-left:0; margin-top:4px; }
 }
 </style>
+<!-- VERSION_FINALE_CORRIGEE_POINT_ROUGE_OK -->
 </head>
 <body>
 <div class="app">
   <div class="top">
-    <div class="brand"><button class="brand-dot" data-action="staff" aria-label="Espace intervenant"></button><span>RDR Freeparty</span><button class="staff-chip" data-action="staff" id="staffChip">Intervenant</button></div>
+    <div class="brand"><button class="brand-dot" data-action="staff" onclick="staff()" aria-label="Espace intervenant"></button><span>RDR Freeparty</span><button class="staff-chip" data-action="staff" onclick="staff()" id="staffChip">Intervenant</button></div>
     <div class="langs"><button data-lang="fr" id="lfr">FR</button><button data-lang="en" id="len">EN</button><button data-lang="es" id="les">ES</button><button data-lang="it" id="lit">IT</button></div>
   </div>
 
@@ -493,7 +494,7 @@ function handleClick(e) {
   const detailId = el.getAttribute("data-detail");
   if (detailId) { showDetail(detailId, el.getAttribute("data-from") || "list"); return; }
   const action = el.getAttribute("data-action");
-  const actions = { home:()=>screen("home"), backDetail, interactions, prevention, breathing, staff, publicBadtrip };
+  const actions = { home:()=>screen("home"), backDetail: backFromDetail, interactions, prevention, breathing, staff, publicBadtrip };
   if (actions[action]) actions[action]();
 }
 

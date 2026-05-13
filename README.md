@@ -1,3 +1,3 @@
-# RDR Freeparty — Stand Stable
+# RDR Freeparty — Version finale corrigée
 
-Version stable réécrite proprement. Interface iPad en colonnes, boutons cliquables, interactions TripSit, respiration, questionnaire multilingue point rouge.
+Version finale stable : point rouge corrigé, boutons cliquables, interface iPad en colonnes, TripSit dans Interactions, Et après ?, respiration au carré, questionnaire multilingue unique.
