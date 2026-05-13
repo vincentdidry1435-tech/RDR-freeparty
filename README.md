@@ -1,3 +1,3 @@
 # RDR Freeparty
 
-Version finale corrigée : boutons fonctionnels, public séparé de l’espace bénévole/salarié RDR.
+Version traductions corrigées : les fiches EN / ES / IT sont traduites.
