@@ -1,1 +1,1 @@
-Envoyer tout le contenu de ce dossier à la racine du dépôt GitHub.
+Dézipper, ouvrir le dossier, Cmd+A, glisser tout le contenu à la racine du repo GitHub, Commit changes.
