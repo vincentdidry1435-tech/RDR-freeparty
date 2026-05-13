@@ -1,3 +1,3 @@
-# RDR Freeparty — Stand Pro Final
+# RDR Freeparty — Stand Stable
 
-Application web RDR multilingue, pensée pour un iPad posé sur un stand de réduction des risques. Organisation en colonnes, public/intervenants, questionnaires, respiration au carré, TripSit, benzos et flyers originaux.
+Version stable réécrite proprement. Interface iPad en colonnes, boutons cliquables, interactions TripSit, respiration, questionnaire multilingue point rouge.
