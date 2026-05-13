@@ -330,6 +330,56 @@ a{color:#fff;text-underline-offset:3px}
   color:#fff;
 }
 
+
+.fr-side{
+  display:block;
+  margin-top:6px;
+  font-size:.48em;
+  color:var(--muted);
+  font-weight:600;
+  letter-spacing:0;
+  text-transform:none;
+}
+.bilingual-list li{
+  margin-bottom:12px;
+}
+.bilingual-list li em,
+.bilingual-q strong em,
+.chip em,
+.supportbox em,
+.note em{
+  display:inline;
+  color:var(--muted);
+  font-size:.92em;
+  margin-left:6px;
+  font-style:italic;
+  font-weight:500;
+}
+.bilingual-q{
+  border-color:rgba(40,231,255,.22);
+}
+.yesno .chip{
+  min-width:120px;
+  text-align:center;
+  justify-content:center;
+}
+.yesno .chip.active:nth-child(1){
+  background:linear-gradient(135deg,var(--neon),#fff);
+  color:#050509;
+}
+.yesno .chip.active:nth-child(2){
+  background:linear-gradient(135deg,var(--pink),#fff);
+  color:#050509;
+}
+.yesno .chip.active:nth-child(3){
+  background:linear-gradient(135deg,var(--orange),#fff);
+  color:#050509;
+}
+@media(max-width:760px){
+  .yesno .chip{min-width:100%; text-align:left}
+  .bilingual-q strong em{display:block;margin-left:0;margin-top:4px}
+}
+
 </style>
 </head>
 <body>
@@ -439,38 +489,187 @@ function numbers(){$('numTitle').textContent=T('numbers');$('numBox').innerHTML=
 function about(){$('aboutTitle').textContent=T('about');$('aboutBox').innerHTML=`<p>App communautaire RDR construite à partir des flyers fournis. Ton pair-à-pair, set & setting, pas moralisateur.</p><p>Les PDF originaux doivent être placés dans <strong>pdf-originaux/</strong>, cités et conservés intacts selon leur licence.</p><p>Cette app ne remplace pas une équipe RDR, un avis médical ou les secours. Elle sert à informer et accompagner.</p><p>Cette V2 ajoute plus d’informations par produit. Certaines fiches terrain et interactions restent volontairement courtes pour garder une navigation lisible en soirée.</p><p>Prévu ensuite : fiche benzos complète + matrice interactive des interactions produits.</p>`;S('about')}
 document.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
 
+
 const FOREIGN_HELP = {
   en: {
     title: "Bad trip / difficult come-up",
+    frTitle: "Bad trip / montée difficile",
     intro: "You are not in trouble. We are here to help you. Try to breathe slowly. The effects will change and come down.",
-    calm: ["You are safe here.", "You took something and the effects can feel strong.", "You are not alone.", "We can move away from the sound and lights.", "You do not have to explain everything now.", "Small sips of water only if you feel okay."],
-    questions: ["What did you take?", "When did you take it?", "Did you drink alcohol?", "Did you mix substances?", "Are you taking medication?", "Do you want a quiet place?", "Do you want a trusted friend?"],
-    choices: ["Alcohol", "Cannabis", "MDMA", "Speed", "Cocaine", "Ketamine", "LSD", "Mushrooms", "GHB / GBL", "DMT", "Opioids", "I don’t know"],
-    support: "We ask for medical support if you cannot respond, breathe strangely, faint, have seizures, chest pain, or if you feel unsafe."
+    frIntro: "Tu n’es pas en problème. On est là pour t’aider. Essaie de respirer doucement. Les effets vont évoluer et redescendre.",
+    calm: [
+      ["You are safe here.", "Tu es en sécurité ici."],
+      ["You are not alone.", "Tu n’es pas seul·e."],
+      ["We can move away from the sound and lights.", "On peut s’éloigner du son et des lumières."],
+      ["You do not have to explain everything now.", "Tu n’as pas besoin de tout expliquer maintenant."],
+      ["Small sips of water only if you feel okay.", "Petites gorgées d’eau seulement si tu te sens capable."]
+    ],
+    questions: [
+      ["Are you breathing okay?", "Tu respires correctement ?"],
+      ["Can you hear me and answer?", "Tu m’entends et tu peux répondre ?"],
+      ["Do you have strong pain?", "Tu as une douleur forte ?"],
+      ["Do you feel too hot?", "Tu as trop chaud ?"],
+      ["Are you very scared or panicking?", "Tu as très peur / tu paniques ?"],
+      ["Do you feel like vomiting?", "Tu as envie de vomir ?"],
+      ["Did you drink alcohol?", "Tu as bu de l’alcool ?"],
+      ["Did you take GHB/GBL, benzos, opioids or ketamine?", "Tu as pris GHB/GBL, benzos, opiacés ou kétamine ?"],
+      ["Do you want a quiet place?", "Tu veux un endroit calme ?"],
+      ["Do you want a trusted friend?", "Tu veux une personne de confiance ?"]
+    ],
+    substancesLabel: "What did you take? <em>Qu’as-tu pris ?</em>",
+    yes: "Yes", no: "No", dontknow: "I don’t know",
+    frYes: "Oui", frNo: "Non", frDontknow: "Je ne sais pas",
+    choices: [
+      ["Alcohol", "Alcool"],
+      ["Cannabis", "Cannabis"],
+      ["MDMA", "MDMA"],
+      ["Speed", "Speed"],
+      ["Cocaine", "Cocaïne"],
+      ["Ketamine", "Kétamine"],
+      ["LSD", "LSD"],
+      ["Mushrooms", "Champis"],
+      ["GHB / GBL", "GHB / GBL"],
+      ["DMT", "DMT"],
+      ["Opioids", "Opiacés"],
+      ["Benzos", "Benzos"],
+      ["I don’t know", "Je ne sais pas"]
+    ],
+    support: "We ask for medical support if you cannot respond, breathe strangely, faint, have seizures, chest pain, or if you feel unsafe.",
+    frSupport: "On demande du soutien médical si tu ne réponds plus, respires bizarrement, fais un malaise, convulses, as mal à la poitrine ou ne te sens pas en sécurité."
   },
   es: {
     title: "Mal viaje / subida difícil",
+    frTitle: "Bad trip / montée difficile",
     intro: "No estás en problemas. Estamos aquí para ayudarte. Intenta respirar despacio. Los efectos van a cambiar y bajar.",
-    calm: ["Estás en un lugar seguro.", "Has tomado algo y los efectos pueden sentirse fuertes.", "No estás solo/a.", "Podemos alejarnos del sonido y de las luces.", "No tienes que explicarlo todo ahora.", "Pequeños sorbos de agua solo si te sientes capaz."],
-    questions: ["¿Qué has tomado?", "¿Cuándo lo tomaste?", "¿Has bebido alcohol?", "¿Has mezclado sustancias?", "¿Tomas medicación?", "¿Quieres un lugar tranquilo?", "¿Quieres que llamemos a un amigo/a de confianza?"],
-    choices: ["Alcohol", "Cannabis", "MDMA", "Speed", "Cocaína", "Ketamina", "LSD", "Setas", "GHB / GBL", "DMT", "Opiáceos", "No lo sé"],
-    support: "Pedimos apoyo médico si no respondes, respiras raro, te desmayas, convulsionas, tienes dolor en el pecho o no te sientes seguro/a."
+    frIntro: "Tu n’es pas en problème. On est là pour t’aider. Essaie de respirer doucement. Les effets vont évoluer et redescendre.",
+    calm: [
+      ["Estás en un lugar seguro.", "Tu es en sécurité ici."],
+      ["No estás solo/a.", "Tu n’es pas seul·e."],
+      ["Podemos alejarnos del sonido y de las luces.", "On peut s’éloigner du son et des lumières."],
+      ["No tienes que explicarlo todo ahora.", "Tu n’as pas besoin de tout expliquer maintenant."],
+      ["Pequeños sorbos de agua solo si te sientes capaz.", "Petites gorgées d’eau seulement si tu te sens capable."]
+    ],
+    questions: [
+      ["¿Respiras bien?", "Tu respires correctement ?"],
+      ["¿Puedes oírme y responder?", "Tu m’entends et tu peux répondre ?"],
+      ["¿Tienes un dolor fuerte?", "Tu as une douleur forte ?"],
+      ["¿Tienes demasiado calor?", "Tu as trop chaud ?"],
+      ["¿Tienes mucho miedo o pánico?", "Tu as très peur / tu paniques ?"],
+      ["¿Tienes ganas de vomitar?", "Tu as envie de vomir ?"],
+      ["¿Has bebido alcohol?", "Tu as bu de l’alcool ?"],
+      ["¿Has tomado GHB/GBL, benzos, opiáceos o ketamina?", "Tu as pris GHB/GBL, benzos, opiacés ou kétamine ?"],
+      ["¿Quieres un lugar tranquilo?", "Tu veux un endroit calme ?"],
+      ["¿Quieres que llamemos a un amigo/a de confianza?", "Tu veux une personne de confiance ?"]
+    ],
+    substancesLabel: "¿Qué has tomado? <em>Qu’as-tu pris ?</em>",
+    yes: "Sí", no: "No", dontknow: "No lo sé",
+    frYes: "Oui", frNo: "Non", frDontknow: "Je ne sais pas",
+    choices: [
+      ["Alcohol", "Alcool"],
+      ["Cannabis", "Cannabis"],
+      ["MDMA", "MDMA"],
+      ["Speed", "Speed"],
+      ["Cocaína", "Cocaïne"],
+      ["Ketamina", "Kétamine"],
+      ["LSD", "LSD"],
+      ["Setas", "Champis"],
+      ["GHB / GBL", "GHB / GBL"],
+      ["DMT", "DMT"],
+      ["Opiáceos", "Opiacés"],
+      ["Benzos", "Benzos"],
+      ["No lo sé", "Je ne sais pas"]
+    ],
+    support: "Pedimos apoyo médico si no respondes, respiras raro, te desmayas, convulsionas, tienes dolor en el pecho o no te sientes seguro/a.",
+    frSupport: "On demande du soutien médical si tu ne réponds plus, respires bizarrement, fais un malaise, convulses, as mal à la poitrine ou ne te sens pas en sécurité."
   },
   it: {
     title: "Bad trip / salita difficile",
+    frTitle: "Bad trip / montée difficile",
     intro: "Non sei nei guai. Siamo qui per aiutarti. Prova a respirare lentamente. Gli effetti cambieranno e scenderanno.",
-    calm: ["Qui sei al sicuro.", "Hai preso qualcosa e gli effetti possono sembrare forti.", "Non sei solo/a.", "Possiamo allontanarci dal suono e dalle luci.", "Non devi spiegare tutto adesso.", "Piccoli sorsi d’acqua solo se te la senti."],
-    questions: ["Cosa hai preso?", "Quando l’hai preso?", "Hai bevuto alcol?", "Hai mescolato sostanze?", "Prendi farmaci?", "Vuoi un posto tranquillo?", "Vuoi una persona di fiducia?"],
-    choices: ["Alcol", "Cannabis", "MDMA", "Speed", "Cocaina", "Ketamina", "LSD", "Funghi", "GHB / GBL", "DMT", "Oppiacei", "Non lo so"],
-    support: "Chiediamo supporto medico se non rispondi, respiri in modo strano, svieni, hai convulsioni, dolore al petto o non ti senti al sicuro."
+    frIntro: "Tu n’es pas en problème. On est là pour t’aider. Essaie de respirer doucement. Les effets vont évoluer et redescendre.",
+    calm: [
+      ["Qui sei al sicuro.", "Tu es en sécurité ici."],
+      ["Non sei solo/a.", "Tu n’es pas seul·e."],
+      ["Possiamo allontanarci dal suono e dalle luci.", "On peut s’éloigner du son et des lumières."],
+      ["Non devi spiegare tutto adesso.", "Tu n’as pas besoin de tout expliquer maintenant."],
+      ["Piccoli sorsi d’acqua solo se te la senti.", "Petites gorgées d’eau seulement si tu te sens capable."]
+    ],
+    questions: [
+      ["Respiri bene?", "Tu respires correctement ?"],
+      ["Mi senti e riesci a rispondere?", "Tu m’entends et tu peux répondre ?"],
+      ["Hai un dolore forte?", "Tu as une douleur forte ?"],
+      ["Hai troppo caldo?", "Tu as trop chaud ?"],
+      ["Hai molta paura o panico?", "Tu as très peur / tu paniques ?"],
+      ["Ti viene da vomitare?", "Tu as envie de vomir ?"],
+      ["Hai bevuto alcol?", "Tu as bu de l’alcool ?"],
+      ["Hai preso GHB/GBL, benzo, oppiacei o ketamina?", "Tu as pris GHB/GBL, benzos, opiacés ou kétamine ?"],
+      ["Vuoi un posto tranquillo?", "Tu veux un endroit calme ?"],
+      ["Vuoi una persona di fiducia?", "Tu veux une personne de confiance ?"]
+    ],
+    substancesLabel: "Cosa hai preso? <em>Qu’as-tu pris ?</em>",
+    yes: "Sì", no: "No", dontknow: "Non lo so",
+    frYes: "Oui", frNo: "Non", frDontknow: "Je ne sais pas",
+    choices: [
+      ["Alcol", "Alcool"],
+      ["Cannabis", "Cannabis"],
+      ["MDMA", "MDMA"],
+      ["Speed", "Speed"],
+      ["Cocaina", "Cocaïne"],
+      ["Ketamina", "Kétamine"],
+      ["LSD", "LSD"],
+      ["Funghi", "Champis"],
+      ["GHB / GBL", "GHB / GBL"],
+      ["DMT", "DMT"],
+      ["Oppiacei", "Opiacés"],
+      ["Benzo", "Benzos"],
+      ["Non lo so", "Je ne sais pas"]
+    ],
+    support: "Chiediamo supporto medico se non rispondi, respiri in modo strano, svieni, hai convulsioni, dolore al petto o non ti senti al sicuro.",
+    frSupport: "On demande du soutien médical si tu ne réponds plus, respires bizarrement, fais un malaise, convulses, as mal à la poitrine ou ne te sens pas en sécurité."
   },
   fr: {
     title: "Montée difficile / bad trip",
+    frTitle: "Version française",
     intro: "Tu n’es pas en problème. On est là pour t’aider. Essaie de respirer doucement. Les effets vont évoluer et redescendre.",
-    calm: ["Tu es en sécurité ici.", "Tu as pris quelque chose et les effets peuvent être forts.", "Tu n’es pas seul·e.", "On peut s’éloigner du son et des lumières.", "Tu n’as pas besoin de tout expliquer maintenant.", "Petites gorgées d’eau seulement si tu te sens capable."],
-    questions: ["Qu’as-tu pris ?", "Quand l’as-tu pris ?", "As-tu bu de l’alcool ?", "As-tu mélangé des produits ?", "Prends-tu un traitement ?", "Veux-tu un endroit calme ?", "Veux-tu une personne de confiance ?"],
-    choices: ["Alcool", "Cannabis", "MDMA", "Speed", "Cocaïne", "Kétamine", "LSD", "Champis", "GHB / GBL", "DMT", "Opiacés", "Je ne sais pas"],
-    support: "On demande du soutien médical si tu ne réponds plus, respires bizarrement, fais un malaise, convulses, as mal à la poitrine ou ne te sens pas en sécurité."
+    frIntro: "",
+    calm: [
+      ["Tu es en sécurité ici.", ""],
+      ["Tu n’es pas seul·e.", ""],
+      ["On peut s’éloigner du son et des lumières.", ""],
+      ["Tu n’as pas besoin de tout expliquer maintenant.", ""],
+      ["Petites gorgées d’eau seulement si tu te sens capable.", ""]
+    ],
+    questions: [
+      ["Tu respires correctement ?", ""],
+      ["Tu m’entends et tu peux répondre ?", ""],
+      ["Tu as une douleur forte ?", ""],
+      ["Tu as trop chaud ?", ""],
+      ["Tu as très peur / tu paniques ?", ""],
+      ["Tu as envie de vomir ?", ""],
+      ["Tu as bu de l’alcool ?", ""],
+      ["Tu as pris GHB/GBL, benzos, opiacés ou kétamine ?", ""],
+      ["Tu veux un endroit calme ?", ""],
+      ["Tu veux une personne de confiance ?", ""]
+    ],
+    substancesLabel: "Qu’as-tu pris ?",
+    yes: "Oui", no: "Non", dontknow: "Je ne sais pas",
+    frYes: "", frNo: "", frDontknow: "",
+    choices: [
+      ["Alcool", ""],
+      ["Cannabis", ""],
+      ["MDMA", ""],
+      ["Speed", ""],
+      ["Cocaïne", ""],
+      ["Kétamine", ""],
+      ["LSD", ""],
+      ["Champis", ""],
+      ["GHB / GBL", ""],
+      ["DMT", ""],
+      ["Opiacés", ""],
+      ["Benzos", ""],
+      ["Je ne sais pas", ""]
+    ],
+    support: "On demande du soutien médical si tu ne réponds plus, respires bizarrement, fais un malaise, convulses, as mal à la poitrine ou ne te sens pas en sécurité.",
+    frSupport: ""
   }
 };
 function foreignBadTrip(){
@@ -479,21 +678,44 @@ function foreignBadTrip(){
   foreignLang(lang === 'fr' ? 'en' : lang);
   S('foreignBad');
 }
+function ynButtons(f, qIndex){
+  return `
+    <div class="answers yesno">
+      <button class="chip yn" onclick="this.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));this.classList.add('active')">${f.yes}${f.frYes ? ` <em>${f.frYes}</em>` : ''}</button>
+      <button class="chip yn" onclick="this.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));this.classList.add('active')">${f.no}${f.frNo ? ` <em>${f.frNo}</em>` : ''}</button>
+      <button class="chip yn" onclick="this.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));this.classList.add('active')">${f.dontknow}${f.frDontknow ? ` <em>${f.frDontknow}</em>` : ''}</button>
+    </div>
+  `;
+}
 function foreignLang(l){
   const f = FOREIGN_HELP[l] || FOREIGN_HELP.en;
   $('foreignContent').innerHTML = `
-    <h2>${f.title}</h2>
-    <div class="note">${f.intro}</div>
-    <div class="section-title">Phrases simples / simple phrases</div>
-    <ul>${f.calm.map(x=>`<li>${x}</li>`).join('')}</ul>
-    <div class="section-title">Questions utiles / useful questions</div>
-    <ul>${f.questions.map(x=>`<li>${x}</li>`).join('')}</ul>
-    <div class="section-title">Produits possibles / possible substances</div>
-    <div class="answers">${f.choices.map(x=>`<button class="chip" onclick="this.classList.toggle('active')">${x}</button>`).join('')}</div>
-    <div class="supportbox">${f.support}</div>
-    <div class="note">Tip terrain : montre simplement cet écran à la personne. Elle peut pointer une réponse sans devoir parler français.</div>
+    <h2>${f.title} ${f.frTitle ? `<em class="fr-side">${f.frTitle}</em>` : ''}</h2>
+    <div class="note">${f.intro}${f.frIntro ? `<br><em>${f.frIntro}</em>` : ''}</div>
+
+    <div class="section-title">Phrases simples / phrases à montrer</div>
+    <ul class="bilingual-list">
+      ${f.calm.map(x=>`<li><span>${x[0]}</span>${x[1] ? `<em>${x[1]}</em>` : ''}</li>`).join('')}
+    </ul>
+
+    <div class="section-title">Questionnaire oui / non</div>
+    ${f.questions.map((x,idx)=>`
+      <div class="question bilingual-q">
+        <strong>${x[0]} ${x[1] ? `<em>${x[1]}</em>` : ''}</strong>
+        ${ynButtons(f, idx)}
+      </div>
+    `).join('')}
+
+    <div class="section-title">${f.substancesLabel}</div>
+    <div class="answers">
+      ${f.choices.map(x=>`<button class="chip" onclick="this.classList.toggle('active')">${x[0]}${x[1] ? ` <em>${x[1]}</em>` : ''}</button>`).join('')}
+    </div>
+
+    <div class="supportbox">${f.support}${f.frSupport ? `<br><em>${f.frSupport}</em>` : ''}</div>
+    <div class="note">Tip terrain : montre cet écran à la personne. Elle peut cocher oui/non ou pointer une réponse sans parler français.</div>
   `;
 }
+
 
 
 function comboImage(){
